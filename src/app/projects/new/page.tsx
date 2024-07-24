@@ -18,6 +18,14 @@ import {
   
 import { AlertCircle, Link } from "lucide-react"
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
+import useGlobalApi, { ErrorResponse } from "@/api/global-api"
+import { createNewProject, fetchAllInterfaces } from "@/api/endpoints/project"
+import ContainerLoading from "@/components/ContainerLoading"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { toast } from "@/components/ui/use-toast"
+import { useGlobalState } from "@/contexts/global-state-context"
+import { AxiosError } from "axios"
 
 const formSchema = z.object({
   projectname: z.string().min(3, {
@@ -46,22 +54,58 @@ const formSchema = z.object({
 })
 
 export default function ProfileForm() {
-  // 1. Define your form.
+  const {loading, data} = useGlobalApi(fetchAllInterfaces, undefined, false);
+  const {setIsLoading} = useGlobalState();
+  console.log(data);
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       projectname: "",
       projectInterface: ""
     },
-  })
+  })  
 
   const projectInterface = form.watch("projectInterface");
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+    const projectData: any = {
+      "name": values["projectname"],
+      "description": values["description"],
+      "source": {
+        "interface": values["projectInterface"],
+        "configuration": values["projectInterface"] === "Kafka" ? {
+          "username": values["username"],
+          "password": values["password"],
+          "broker": values["broker"]
+        }: null
+      }
+    }
+    try {
+      setIsLoading(true);
+      const response = await createNewProject(projectData);
+      toast({
+        title: "Success",
+        description: "Project created successfully"
+      });
+      router.push("/dashboard");
+    } catch (error) {
+      let errorMessage = 'An unknown error occurred';
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data as ErrorResponse;
+        errorMessage = errorResponse.data.message || errorResponse.data.statusCode.toString();
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+      toast({
+        title: "Error",
+        description: errorMessage
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -123,7 +167,7 @@ export default function ProfileForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Interface</FormLabel>
-              <FormControl>
+              {loading? <ContainerLoading></ContainerLoading> :<FormControl>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -131,10 +175,12 @@ export default function ProfileForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="Kafka">Kafka</SelectItem>
+                  {data.map((inter: any, index:number)=>(
+                    <SelectItem  key={inter["interfaceId"]} value={inter["name"]}>{inter["name"]}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-              </FormControl>
+              </FormControl>}
               <FormDescription>
               Choose an interface of the project. Interface is the type of centralized logging interface you have.
               </FormDescription>

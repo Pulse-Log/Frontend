@@ -56,7 +56,7 @@ export function CardPattern({ mouseX, mouseY }: any) {
         className="absolute inset-0 rounded-2xl opacity-0 mix-blend-overlay  group-hover/card:opacity-100"
         style={style}
       >
-        <p className=" absolute inset-x-0 text-sm h-full break-words whitespace-pre-wrap text-[#686868] transition duration-500">
+        <div className=" absolute inset-x-0 text-sm h-full break-words whitespace-pre-wrap text-[#686868] transition duration-500">
           <p>[2024-07-11 08:23:15] [INFO] System initialization started</p>
           <p>
             [2024-07-11 08:23:16] [DEBUG] Loading configuration files from
@@ -304,7 +304,7 @@ export function CardPattern({ mouseX, mouseY }: any) {
             alerted via PagerDuty 4. Automated system audit initiated Further
             investigation required urgently.
           </p>
-        </p>
+        </div>
       </motion.div>
     </div>
   );
