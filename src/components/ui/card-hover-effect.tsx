@@ -7,15 +7,15 @@ import { BsDot } from "react-icons/bs";
 export const HoverEffect = ({
   items,
   className,
+  projectId
 }: {
   items: {
-    title: string;
+    name: string;
     description: string;
-    link: string;
-    status: number;
-    lps: number;
+    sId: string;
   }[];
   className?: string;
+  projectId: string;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -28,8 +28,8 @@ export const HoverEffect = ({
     >
       {items.map((item, idx) => (
         <Link
-          href={item?.link}
-          key={item?.link}
+          href={`/projects/${projectId}/stacks/${item.sId}`}
+          key={item.sId}
           className="relative group  block p-2 w-full h-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -52,8 +52,8 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card>
-            <CardTitle items={item}>{item.title}</CardTitle>
-            <CardDescription items={item}>{item.description}</CardDescription>
+            <CardTitle >{item.name}</CardTitle>
+            <CardDescription >{item.description}</CardDescription>
           </Card>
         </Link>
       ))}
@@ -84,29 +84,30 @@ export const Card = ({
 export const CardTitle = ({
   className,
   children,
-  items
+  // items
 }: {
   className?: string;
   children: React.ReactNode;
-  items:{
-    status: number;}
+  // items:{
+  //   status: number;}
 }) => {
   return (
     <div className=" flex justfiy-start items-center gap-4"><h4 className={cn("text-zinc-100 font-bold tracking-wide", className)}>
     {children}
   </h4>
-  <BsDot className={`text-4xl ${ items.status === 0 ? "text-green-500" : items.status === 1 ? "text-yellow-500" : "text-red-500"}`} /></div>
+  <BsDot className={`text-4xl 
+    "text-red-500"}`} /></div>
   );
 };
 export const CardDescription = ({
   className,
   children,
-  items
+  // items
 }: {
   className?: string;
   children: React.ReactNode;
-  items:{
-    lps: number;}
+  // items:{
+  //   lps: number;}
 }) => {
   return (
     <>
@@ -121,7 +122,7 @@ export const CardDescription = ({
     <p className={cn(
         "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
         className
-      )}>Lps: {items.lps}</p>
+      )}>Lps: 58</p>
     </>
   );
 };

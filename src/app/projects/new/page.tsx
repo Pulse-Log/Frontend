@@ -109,7 +109,7 @@ export default function ProfileForm() {
   }
 
   return (
-    <div className=' fixed left-[17vw] bottom-0 top-0 right-0 p-10 overflow-y-auto flex flex-col justify-start items-center gap-10 '>
+    <div className=' fixed left-[15vw] bottom-0 top-0 right-0 p-10 overflow-y-auto flex flex-col justify-start items-center gap-10 '>
         <div className=" flex justify-center items-start h-full flex-col gap-8 w-[50%]">
         <h1 className=" text-3xl font-semibold">Create new Project</h1>
         <Alert>

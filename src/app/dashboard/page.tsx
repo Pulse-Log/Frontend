@@ -32,9 +32,9 @@ export default function Dashboard() {
   };
   return (
     
-    <div className=' fixed left-[17vw] bottom-0 top-0 right-0 flex justify-start items-center p-20 group/card' onMouseMove={onMouseMove}>
-      <EvervaultCard className=' left-[17vw] bottom-0 top-0 right-0 z-[-15] fixed' mouseX={mouseX} mouseY={mouseY}></EvervaultCard>
-      <div className='fixed left-[17vw] top-[10px] right-0 flex justify-center items-center'>
+    <div className=' fixed left-[15vw] bottom-0 top-0 right-0 flex justify-start items-center p-20 group/card' onMouseMove={onMouseMove}>
+      <EvervaultCard className=' left-[15vw] bottom-0 top-0 right-0 z-[-15] fixed' mouseX={mouseX} mouseY={mouseY}></EvervaultCard>
+      <div className='fixed left-[15vw] top-[10px] right-0 flex justify-center items-center'>
       <PlaceholdersAndVanishInput
         placeholders={[]}
         onChange={handleChange}

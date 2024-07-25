@@ -9,14 +9,14 @@ import SideBarStructure from "./SideBar/projects-sidebar";
 export default function SideBar() {
   
   return (
-    <div className=" max-h-screen w-[17vw] bg-black fixed top-0 left-0 bottom-0 flex flex-col justify-between align-middle py-[2vh] px-[15px] border-r-1 border-[#222222c4]">
+    <div className=" max-h-screen w-[15vw] bg-black fixed top-0 left-0 bottom-0 flex flex-col justify-between align-middle py-[2vh] px-[15px] border-r-1 border-[#222222c4]">
       <div>
         <Link href={'/dashboard'}><div className=" flex max-w-full justify-center items-center gap-2 my-[10px] cursor-pointer">
           <PiGraphLight className=" text-white text-4xl" />
-          <h1 className=" text-xl font-medium">Logix</h1>
+          <h1 className=" text-2xl font-medium">Logix</h1>
         </div></Link>
-        <div className=" mb-3 mt-7 flex justify-between items-center">
-          <p>Projects</p> <Link href={'/projects/new'}><IoCreate className=" cursor-pointer" /></Link>
+        <div className=" mb-1 mt-3 pt-4 mx-2 flex justify-between items-center">
+          <p className=" text-muted-foreground text-sm font-semibold">PROJECTS</p> <Link href={'/projects/new'}><IoCreate className=" cursor-pointer" /></Link>
         </div>
         <SideBarStructure></SideBarStructure>
       </div>

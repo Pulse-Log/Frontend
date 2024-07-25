@@ -1,6 +1,10 @@
 "use client"
 
+import { fetchProject } from '@/api/endpoints/project';
+import useGlobalApi from '@/api/global-api';
 import { HoverEffect } from '@/components/ui/card-hover-effect';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import React, { Component } from 'react'
 import { MdOutlineRefresh } from 'react-icons/md'
 
@@ -31,16 +35,21 @@ const projects = [
   },
 ];
 
-export default function ProjectHome({ params }: { params: { project_id: string } }) {
+export default function ProjectHome() {
+  const params = useParams();
+  const {loading, data} = useGlobalApi(()=>fetchProject(params.project_id as string), undefined, true);
+  console.log(data);
+
+  if(!data) return null;
     return (
-      <div className=' fixed left-[17vw] bottom-0 top-0 right-0 p-10 overflow-y-auto'>
+      <div className=' fixed left-[15vw] bottom-0 top-0 right-0 p-10 overflow-y-auto'>
         <div className=' w-full'>
         <div className='flex justify-start items-center gap-3'>
-        <h1 className=' text-2xl font-semibold'>CodeXSphere</h1>
+        <h1 className=' text-2xl font-semibold'>{data["name"]}</h1>
         <p className=" bg-red-500 rounded-lg px-2 py-1 text-sm">Offline</p>
         <MdOutlineRefresh className=' cursor-pointer text-xl'/>
         </div>
-        <p className=' my-5 text-base text-zinc-400'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia eum sint, eveniet quis accusamus eos cum hic facilis cumque? Odio blanditiis suscipit nesciunt consequuntur quaerat debitis a molestiae, quidem quis.</p>
+        <p className=' my-5 text-base text-zinc-400'>{data["description"]}</p>
         </div>
         <h1 className=' font-semibold'>Project Logs</h1>
         <div className=' max-w-full h-[50vh] border bg-[#000000] my-5 rounded-lg overflow-y-auto p-5'>
@@ -48,12 +57,12 @@ export default function ProjectHome({ params }: { params: { project_id: string }
         </div>
         <div className=' max-w-full flex justify-end items-center text-base gap-3'>
           <h1>LPS: 1058</h1>
-          <p>Total stacks: 10</p>
-          <p className=" h-fit cursor-pointer px-4 my-1 py-2 bg-white text-black flex justify-center align-middle rounded-lg text-base">New stack</p>
+          <p>Total stacks: {data["stacks"].length}</p>
+          <Link href={`/projects/${params.project_id}/stacks/new`}><p className=" h-fit cursor-pointer px-4 my-1 py-2 bg-white text-black flex justify-center align-middle rounded-lg text-base">New stack</p></Link>
         </div>
         <h1 className=' font-semibold'>Stacks</h1>
-        <div className="max-w-full mx-auto px-8">
-      <HoverEffect items={projects} />
+        <div className="max-w-full">
+      <HoverEffect items={data["stacks"]} projectId={params.project_id as string} />
     </div>
       </div>
     )
