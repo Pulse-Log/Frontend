@@ -23,23 +23,12 @@ export default function Dashboard() {
     mouseY.set(clientY - top);
   }
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("submitted");
-  };
   return (
     
-    <div className=' fixed left-[15vw] bottom-0 top-0 right-0 flex justify-start items-center p-20 group/card' onMouseMove={onMouseMove}>
-      <EvervaultCard className=' left-[15vw] bottom-0 top-0 right-0 z-[-15] fixed' mouseX={mouseX} mouseY={mouseY}></EvervaultCard>
+    <div className='flex justify-start items-center p-20 group/card' onMouseMove={onMouseMove}>
+      <EvervaultCard className=' left-[15vw] bottom-5 top-5 right-5 rounded-xl z-[-15] fixed' mouseX={mouseX} mouseY={mouseY}></EvervaultCard>
       <div className='fixed left-[15vw] top-[10px] right-0 flex justify-center items-center'>
-      <PlaceholdersAndVanishInput
-        placeholders={[]}
-        onChange={handleChange}
-        onSubmit={onSubmit}
-      />
+      
       </div>
       <div className="text-3xl font-extrabold text-white w-[50%]">
         <div className='flex items-center justify-start gap-3'>

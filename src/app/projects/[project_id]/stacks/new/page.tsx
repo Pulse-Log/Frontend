@@ -25,6 +25,7 @@ import { ErrorResponse } from "@/api/global-api";
 import { toast } from "@/components/ui/use-toast";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation"
+import { locale } from "@/global/json-locale";
 
 // Dynamically import the JSON editor to avoid SSR issues
 const JSONEditor = dynamic(
@@ -147,7 +148,7 @@ export default function NewStack() {
   }
 
   return (
-    <div className="fixed left-[15vw] bottom-0 top-0 right-0 p-10 overflow-y-auto flex flex-col justify-start items-center gap-10">
+    <div className="flex flex-col justify-start items-center gap-10">
       <div className="flex justify-center items-start h-full flex-col gap-8 w-[50%]">
         <h1 className="text-3xl font-semibold">Create new Project</h1>
         <Alert>
@@ -249,6 +250,7 @@ export default function NewStack() {
                           placeholder={{
                             example: "Enter your JSON schema here",
                           }}
+                          locale={locale}
                           colors={{
                             background: "transparent",
                             default: "#D4D4D4",
@@ -256,7 +258,7 @@ export default function NewStack() {
                             number: "#B5CEA8",
                             colon: "#49B8F7",
                             keys: "#9CDCFE",
-                            error: "#F44336",
+                            // error: "#F44336",
                           }}
                           style={{ body: { fontSize: "12px" } }}
                           height="200px"
@@ -264,7 +266,7 @@ export default function NewStack() {
                           onBlur={(value: { json: string }) =>
                             field.onChange(value.json)
                           }
-                          value={field.value}
+                          // value={field.value}
                         />
                       )}
                     />

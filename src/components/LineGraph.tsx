@@ -81,6 +81,8 @@ export const GraphComponent = ({ data, condition, onRemove }:{
                 }
               />
               <Line
+              animateNewValues={true}
+              isAnimationActive={false}
                 dataKey="value"
                 type="monotone"
                 stroke={`var(--color-value)`}

@@ -6,17 +6,26 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { IoCreate } from "react-icons/io5";
 import Link from "next/link";
 import SideBarStructure from "./SideBar/projects-sidebar";
+import { MdDashboard } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
 export default function SideBar() {
   
   return (
-    <div className=" max-h-screen w-[15vw] bg-black fixed top-0 left-0 bottom-0 flex flex-col justify-between align-middle py-[2vh] px-[15px] border-r-1 border-[#222222c4]">
+    <div className=" z-[3] w-[15vw] top-[60px] bg-black fixed left-0 bottom-0 flex flex-col justify-between align-middle py-[2vh] px-[15px] border-t-1 border-white/[0.2]">
       <div>
-        <Link href={'/dashboard'}><div className=" flex max-w-full justify-center items-center gap-2 my-[10px] cursor-pointer">
-          <PiGraphLight className=" text-white text-4xl" />
-          <h1 className=" text-2xl font-medium">Logix</h1>
-        </div></Link>
-        <div className=" mb-1 mt-3 pt-4 mx-2 flex justify-between items-center">
-          <p className=" text-muted-foreground text-sm font-semibold">PROJECTS</p> <Link href={'/projects/new'}><IoCreate className=" cursor-pointer" /></Link>
+      <div className="flex justify-between items-center mt-3">
+          <p className=" text-base font-semibold">Menu</p>
+        </div>
+      <div className=" flex justify-start items-center gap-4 px-2 h-fit py-2 hover:bg-accent  transition-all rounded-lg cursor-pointer">
+      <MdDashboard />
+      <p className=" text-sm">Dashboard</p>
+      </div>
+      <div className=" flex justify-start items-center gap-4 px-2 h-fit py-2 hover:bg-accent  transition-all rounded-lg cursor-pointer">
+      <FaUser />
+      <p className=" text-sm">Profile</p>
+      </div>
+        <div className="flex justify-between items-center mt-3">
+          <p className=" text-base font-semibold">Projects</p> <Link href={'/projects/new'}><IoCreate className=" cursor-pointer" /></Link>
         </div>
         <SideBarStructure></SideBarStructure>
       </div>

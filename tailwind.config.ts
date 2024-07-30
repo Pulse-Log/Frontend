@@ -22,7 +22,7 @@ const config = {
     },
     fontSize: {
       ssm: '.75rem',
-      sm: '.875rem',
+      sm: '.865rem',
       base: '1rem',
       xl: '1.125rem',
       '2xl': '1.563rem',
