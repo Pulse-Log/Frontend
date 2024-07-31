@@ -5,21 +5,36 @@ import useGlobalApi from "@/api/global-api";
 import { Card } from "@/components/ui/card";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { Component } from "react";
 import { FaClock } from "react-icons/fa";
 import { IoAnalytics } from "react-icons/io5";
 import { MdOutlineRefresh } from "react-icons/md";
 import { PiStackSimpleFill } from "react-icons/pi";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 
 export default function ProjectHome() {
   const params = useParams();
+  const route = useRouter();
   const { loading, data } = useGlobalApi(
     () => fetchProject(params.project_id as string),
     undefined,
     true
   );
   console.log(data);
+
+  function onNavigate(to:string){
+    route.push(to);
+  }
 
   if (!data) return null;
   return (
@@ -80,8 +95,51 @@ export default function ProjectHome() {
             </p>
           </div>
         </div>
+      </div> 
+      <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-8">
+        
+        <div>
+      <div className=" flex justify-between w-full items-center">
+      <h1 className=" font-semibold text-base">Stacks</h1>
+      <Link href={`/projects/${params.project_id}/stacks/new`}>
+          <p className=" h-fit cursor-pointer px-4 my-1 py-2 bg-white text-black flex justify-center align-middle rounded-lg text-base">
+            New stack
+          </p>
+        </Link>
       </div>
-      <h1 className=" font-semibold">Project Logs</h1>
+      <div className="max-w-full">
+      <Table>
+  <TableCaption>A list of your stacks.</TableCaption>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-[100px]">Name</TableHead>
+      <TableHead>Description</TableHead>
+      <TableHead>Status</TableHead>
+      <TableHead className="text-right">LPS</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody className=" overflow-auto">
+    {data["stacks"].map((stack:any, index:number)=>(
+      // <Link href={`/projects/${params.project_id}/stacks/${stack.sId}`} className="w-full">
+        
+      // </Link>
+      <TableRow className=" cursor-pointer" onClick={()=>onNavigate(`/projects/${params.project_id}/stacks/${stack.sId}`)}>
+      <TableCell className="font-medium">{stack["name"]}</TableCell>
+      <TableCell>{stack["description"]}</TableCell>
+      <TableCell>Online</TableCell>
+      <TableCell className="text-right">280</TableCell>
+    </TableRow>
+    ))}
+  </TableBody>
+</Table>
+        {/* <HoverEffect
+          items={data["stacks"]}
+          projectId={params.project_id as string}
+        /> */}
+      </div>
+        </div>
+        <div>
+          <h1 className=" font-semibold text-base">Project Logs</h1>
       <div className=" max-w-full h-[50vh] border bg-[#000000] my-5 rounded-lg overflow-y-auto p-5">
         <p className=" text-muted-foreground tracking-wide leading-relaxed text-sm">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam
@@ -202,22 +260,10 @@ export default function ProjectHome() {
           neque laborum?
         </p>
       </div>
-      <div className=" max-w-full flex justify-end items-center text-base gap-3">
-        <h1>LPS: 1058</h1>
-        <p>Total stacks: {data["stacks"].length}</p>
-        <Link href={`/projects/${params.project_id}/stacks/new`}>
-          <p className=" h-fit cursor-pointer px-4 my-1 py-2 bg-white text-black flex justify-center align-middle rounded-lg text-base">
-            New stack
-          </p>
-        </Link>
+        </div>
       </div>
-      <h1 className=" font-semibold">Stacks</h1>
-      <div className="max-w-full">
-        <HoverEffect
-          items={data["stacks"]}
-          projectId={params.project_id as string}
-        />
-      </div>
+      
+      
     </div>
   );
 }

@@ -15,7 +15,7 @@ export default function TopBar() {
   return (
     <div className=" fixed z-[10] w-screen top-0 h-[60px] flex justify-between items-center">
       <div className=" w-[15vw] flex items-center justify-center border-white/[0.2] border-r-1 h-full">
-        <Link href={"/dashboard"} className=" w-full mx-2 rounded-md flex items-center justify-center h-fit py-1 bg-accent">
+        <Link href={"/dashboard"} className=" w-full mx-2 rounded-md flex items-center justify-center h-fit py-1 ">
           <div className=" flex w-full justify-center items-center gap-2 cursor-pointer">
             <PiGraphLight className=" text-white text-3xl" />
             <h1 className=" text-2xl font-semibold">Logix</h1>
