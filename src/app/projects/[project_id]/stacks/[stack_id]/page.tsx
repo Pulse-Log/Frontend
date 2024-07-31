@@ -66,7 +66,7 @@ export default function DynamicDashboard() {
   }));
 
   const [data, setData] = useState(initialData);
-  const [graphs, setGraphs] = useState<string[]>([]);
+  const [graphs, setGraphs] = useState([]);
   const [topics, setTopics] = useState(sampleTopics);
 
   const handleNewData = (newDataPoint: any) => {
@@ -79,14 +79,14 @@ export default function DynamicDashboard() {
     });
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const newTimestamp = Date.now();
-  //     const newValue = Math.floor(Math.random() * 1000);
-  //     handleNewData({ timestamp: newTimestamp, value: newValue });
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newTimestamp = Date.now();
+      const newValue = Math.floor(Math.random() * 1000);
+      handleNewData({ timestamp: newTimestamp, value: newValue });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const removeGraph = (index: number) => {
     setGraphs(graphs.filter((_, i) => i !== index));
@@ -145,14 +145,19 @@ export default function DynamicDashboard() {
         </CardContent>
       </Card>
 
-      {graphs.map((condition, index) => (
+      <div className=" grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4">
+      {stackData["components"].map((component:any, index:number) => (
+        component["viewer"]["name"] === "LineChart"?
         <GraphComponent
           key={index}
           data={data}
-          condition={condition}
+          condition={"value"}
+          name={component["name"]}
+          description={component["description"]}
           onRemove={() => removeGraph(index)}
-        />
+        />:null
       ))}
+      </div>
     </div>
   );
 }
