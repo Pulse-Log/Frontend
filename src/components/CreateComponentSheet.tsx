@@ -166,7 +166,7 @@ export default function CreateComponentSheet({ signatureData }: CreateComponentS
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline">Create new Viewer</Button>
+        <Button variant="default">Create new Viewer</Button>
       </SheetTrigger>
       <SheetContent className="w-[30vw] overflow-auto">
         <SheetHeader>

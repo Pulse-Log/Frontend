@@ -4,6 +4,7 @@ import { useMotionValue } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import { useMotionTemplate, motion } from "framer-motion";
 import { cn } from "@/utils/cn";
+import { usePathname } from "next/navigation";
 
 export const EvervaultCard = ({
   text,
@@ -44,6 +45,7 @@ export const EvervaultCard = ({
 export function CardPattern({ mouseX, mouseY }: any) {
   let maskImage = useMotionTemplate`radial-gradient(350px at ${mouseX}px ${mouseY}px, white, transparent)`;
   let style = { maskImage, WebkitMaskImage: maskImage };
+  const isAuthPage = usePathname().startsWith('/auth');
 
   return (
     <div className="pointer-events-none">
@@ -56,7 +58,7 @@ export function CardPattern({ mouseX, mouseY }: any) {
         className="absolute inset-0 rounded-2xl opacity-0 mix-blend-overlay  group-hover/card:opacity-100"
         style={style}
       >
-        <div className=" absolute inset-x-0 text-sm h-full break-words whitespace-pre-wrap text-[#686868] transition duration-500">
+        <div className={` absolute inset-x-0 text-sm h-full break-words whitespace-pre-wrap ${isAuthPage? 'text-[#a5a5a5]' : 'text-[#696969]'} transition duration-500`}>
           <p>[2024-07-11 08:23:15] [INFO] System initialization started</p>
           <p>
             [2024-07-11 08:23:16] [DEBUG] Loading configuration files from

@@ -26,6 +26,7 @@ import { useState } from "react"
 import { toast } from "@/components/ui/use-toast"
 import { useGlobalState } from "@/contexts/global-state-context"
 import { AxiosError } from "axios"
+import { useNavbar } from "@/contexts/navbar-context"
 
 const formSchema = z.object({
   projectname: z.string().min(3, {
@@ -56,6 +57,7 @@ const formSchema = z.object({
 export default function ProfileForm() {
   const {loading, data} = useGlobalApi(fetchAllInterfaces, undefined, false);
   const {setIsLoading} = useGlobalState();
+  const {refetchNavbar} = useNavbar();
   console.log(data);
   const router = useRouter();
 
@@ -89,6 +91,7 @@ export default function ProfileForm() {
         title: "Success",
         description: "Project created successfully"
       });
+      refetchNavbar();
       router.push("/dashboard");
     } catch (error) {
       let errorMessage = 'An unknown error occurred';

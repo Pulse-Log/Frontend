@@ -16,7 +16,8 @@ export interface ErrorResponse {
 
 function useGlobalApi<T>(apiCall: () => Promise<ApiResponse>, dependencies: any[] = [], globalLoader:boolean): {
   loading: boolean,
-  data: any
+  data: any,
+  fetchData: () => Promise<void>
 }{
   const { setIsLoading, setError } = useGlobalState();
   const [data, setData] = useState<T | null>(null);
@@ -54,7 +55,7 @@ function useGlobalApi<T>(apiCall: () => Promise<ApiResponse>, dependencies: any[
     fetchData();
   }, [fetchData]);
 
-  return {loading,data};
+  return {loading,data, fetchData};
 }
 
 export default useGlobalApi;

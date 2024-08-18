@@ -9,13 +9,19 @@ client.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
 
+  if(!token || !userId){
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    window.location.href = '/auth/login';
+  }
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
   if (userId) {
     // For GET requests, add userId to params
-    if (config.method?.toLowerCase() === 'get') {
+    if (config.method?.toLowerCase() === 'get' || config.method?.toLowerCase()==='delete') {
       config.params = { ...config.params, userId };
     } 
     // For other methods (POST, PUT, PATCH, DELETE), add userId to data
@@ -42,8 +48,9 @@ client.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
     if (error.response?.status === 401) {
-    //   localStorage.removeItem('token');
-      // window.location.href = '/login';
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      window.location.href = '/auth/login';
     }
     return Promise.reject(error);
   }

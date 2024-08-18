@@ -26,6 +26,7 @@ import { toast } from "@/components/ui/use-toast";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation"
 import { locale } from "@/global/json-locale";
+import { useNavbar } from "@/contexts/navbar-context";
 
 // Dynamically import the JSON editor to avoid SSR issues
 const JSONEditor = dynamic(
@@ -42,10 +43,10 @@ const signatureSchema = z.object({
     .max(20, {
       message: "Key must be at most 20 characters.",
     }),
-  value: z
+  topic: z
     .string()
-    .min(3, {
-      message: "Value must be at least 3 characters.",
+    .min(1, {
+      message: "Value must be at least 1 characters.",
     })
     .max(20, {
       message: "Value must be at most 20 characters.",
@@ -94,12 +95,13 @@ export default function NewStack() {
   const projectId = params.project_id;
   const {setIsLoading} = useGlobalState();
   const router = useRouter();
+  const {refetchNavbar} = useNavbar();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       description: "",
-      signatures: [{ key: "", value: "", schema: "{}" }],
+      signatures: [{ key: "", topic: "", schema: "{}" }],
     },
   });
 
@@ -116,7 +118,7 @@ export default function NewStack() {
       description: values.description,
       signatures: values.signatures.map((signature) => ({
         key: signature.key,
-        value: signature.value,
+        topic: signature.topic,
         schema: signature.schema,
       })),
     };
@@ -128,6 +130,7 @@ export default function NewStack() {
         title: "Success",
         description: "New Stack created successfully"
       });
+      refetchNavbar();
       router.push(`/projects/${projectId}`);
     } catch (error) {
       let errorMessage = 'An unknown error occurred';
@@ -228,7 +231,7 @@ export default function NewStack() {
                 />
                 <FormField
                   control={form.control}
-                  name={`signatures.${index}.value`}
+                  name={`signatures.${index}.topic`}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Value</FormLabel>
@@ -293,7 +296,7 @@ export default function NewStack() {
               variant="outline"
               size="sm"
               className="mt-2"
-              onClick={() => append({ key: "", value: "", schema: "{}" })}
+              onClick={() => append({ key: "", topic: "", schema: "{}" })}
             >
               <Plus className="h-4 w-4 mr-2" /> Add Signature
             </Button>

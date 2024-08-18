@@ -3,6 +3,7 @@ import { EvervaultCard } from '@/components/ui/evervault-card'
 import { FlipWords } from '@/components/ui/flip-words'
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 import { PlaceholdersAndVanishInput } from '@/components/ui/placeholder-and-vanish-input';
+import { useNavbar } from '@/contexts/navbar-context';
 import { useMotionValue } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -12,6 +13,7 @@ export default function Dashboard() {
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
   const router = useRouter();
+  const {isPinned} = useNavbar();
 
   function navigationPage(to: string){
     router.push(to);
@@ -26,10 +28,14 @@ export default function Dashboard() {
   return (
     
     <div className='flex justify-start items-center p-20 group/card' onMouseMove={onMouseMove}>
-      <EvervaultCard className=' left-[15vw] bottom-5 top-5 right-5 rounded-xl z-[-15] fixed' mouseX={mouseX} mouseY={mouseY}></EvervaultCard>
-      <div className='fixed left-[15vw] top-[10px] right-0 flex justify-center items-center'>
+      <EvervaultCard className={`${
+        isPinned ? "left-[15vw]" : "left-0"
+      } bottom-0 top-[60px] p-5 right-0 z-[-15] fixed`} mouseX={mouseX} mouseY={mouseY}></EvervaultCard>
+      <div className={`fixed ${
+        isPinned ? "left-[15vw]" : "left-0"
+      } bottom-0 top-[60px] p-5 right-0 flex justify-start items-center px-20`}>
       
-      </div>
+      
       <div className="text-3xl font-extrabold text-white w-[50%]">
         <div className='flex items-center justify-start gap-3'>
           <PiGraphLight className=" text-white text-3xl" /><p>Unlock</p>
@@ -45,7 +51,7 @@ export default function Dashboard() {
         </div>
         
       </div>
-     
+     </div>
     </div>
     
   )
