@@ -55,7 +55,7 @@ const ResponsiveSidebar = () => {
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
+  }, [isPinned, togglePin]);
 
   // if (isMobile) {
   //   return null;

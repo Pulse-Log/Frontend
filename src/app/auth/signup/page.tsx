@@ -95,15 +95,15 @@ export default function SignupPage() {
           {emailVerification? <Card className="w-[50%] p-10">
             <h2 className="text-xl font-semibold text-foreground">Confirmation Email Sent!</h2>
   <p className="mt-2 text-muted-foreground text-sm">
-    We've sent a confirmation email to your inbox. Please check your email to verify your account.
+    We&apos;ve sent a confirmation email to your inbox. Please check your email to verify your account.
   </p>
   <p className="mt-2 text-muted-foreground text-sm">
-    If you don't see the email in your inbox, please check your spam or junk folder.
+    If you don&apos;t see the email in your inbox, please check your spam or junk folder.
   </p>
           </Card> :  <Card className="w-[50%] p-10">
           <p className="text-3xl text-center">Welcome to Logix</p>
           <p className="text-center text-primary-foreground dark:text-gray-400 my-6 text-sm">
-            "Effortlessly manage and visualize your logs. Your journey to a more efficient server begins here."
+            &quot;Effortlessly manage and visualize your logs. Your journey to a more efficient server begins here.&quot;
           </p>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -152,7 +152,7 @@ export default function SignupPage() {
             </form>
           </Form>
           <p className="text-center text-sm text-muted-foreground mt-4">
-            "The first step towards optimizing your infrastructure is just a click away."
+            &quot;The first step towards optimizing your infrastructure is just a click away.&quot;
           </p>
           <div className="text-center text-sm text-muted-foreground mt-2 flex items-center justify-center gap-2">
             Already have an account?{" "}
@@ -174,10 +174,10 @@ export default function SignupPage() {
   />
  <div className=" mt-10 w-[50%] space-y-3">
  <h2 className="text-2xl font-semibold text-black">
-    "Empower your data insights with Logix."
+    &quot;Empower your data insights with Logix.&quot;
   </h2>
   <p className="text-lg text-gray-600">
-    Logix helps you seamlessly visualize and manage logs from all your services. Whether you're monitoring microservices or debugging server issues, Logix makes it easy to see the big picture.
+    Logix helps you seamlessly visualize and manage logs from all your services. Whether you&apos;re monitoring microservices or debugging server issues, Logix makes it easy to see the big picture.
   </p>
   <ul className="list-none space-y-2 text-gray-600">
     <li>✔️ Create and manage log groups effortlessly</li>
