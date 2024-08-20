@@ -13,7 +13,7 @@ export interface ErrorResponse {
     message: string;
   };
 }
-
+ 
 function useGlobalApi<T>(apiCall: () => Promise<ApiResponse>, dependencies: any[] = [], globalLoader:boolean): {
   loading: boolean,
   data: any,
