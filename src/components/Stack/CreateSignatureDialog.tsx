@@ -115,7 +115,7 @@ export function NewSignatureDialog({ onSuccess }:any) {
         <DialogTrigger asChild>
           <Button variant="default">New Signature</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-auto">
           <DialogHeader className="pt-2">
             <DialogTitle>New Signature</DialogTitle>
             <DialogDescription>

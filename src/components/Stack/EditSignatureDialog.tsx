@@ -59,7 +59,7 @@ const formSchema = z.object({
       message: "Value must be at most 20 characters.",
     }),
   schema: z.any().refine(
-    (val) => {
+    (val:any) => {
       try {
         if (typeof val === "string") {
           JSON.parse(val);
@@ -166,7 +166,7 @@ export function SignatureDialog({ signature, onSuccess, canDelete }:any) {
         <DialogTrigger asChild>
           <Button variant="outline">Settings</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-auto">
           <DialogHeader className="pt-2">
             <DialogTitle>Settings</DialogTitle>
             <DialogDescription>
